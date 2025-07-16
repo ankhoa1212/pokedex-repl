@@ -2,9 +2,19 @@ package main
 
 import "fmt"
 import "strings"
+import "bufio"
+import "os"
 
 func main() {
-	fmt.Println("Hello, World!")
+	var input string
+	reader := bufio.NewScanner(os.Stdin)
+	for {
+		fmt.Print("Pokedex > ")
+		reader.Scan()
+		input = reader.Text()
+		words := cleanInput(input)
+		fmt.Println("You entered:", words)
+	}
 }
 
 func cleanInput(text string) []string {
