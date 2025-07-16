@@ -5,6 +5,25 @@ import "strings"
 import "bufio"
 import "os"
 
+type Command struct {
+	name        string
+	description string
+	callback     func() error
+}
+
+map[string]Command{
+	"help": {
+		name:        "help",
+		description: "Show the help message",
+		callback:    commandHelp,
+	},
+	"exit": {
+		name:        "exit",
+		description: "Exit the Pokedex",
+		callback:    commandExit,
+	},
+}
+
 func main() {
 	var input string
 	reader := bufio.NewScanner(os.Stdin)
@@ -14,10 +33,8 @@ func main() {
 		input = reader.Text()
 		words := cleanInput(input)
 		for i := range words {
-			if words[i] == "help" {
-				commandHelp()
-			} else if words[i] == "exit" {
-				commandExit()
+			if cmd, ok := commands[words[i]]; ok {
+				cmd.callback()
 			}
 		}
 	}
