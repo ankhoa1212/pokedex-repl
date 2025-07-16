@@ -13,8 +13,12 @@ func main() {
 		reader.Scan()
 		input = reader.Text()
 		words := cleanInput(input)
-		if words[0] == "exit" {
-			commandExit()
+		for i := range words {
+			if words[i] == "help" {
+				commandHelp()
+			} else if words[i] == "exit" {
+				commandExit()
+			}
 		}
 	}
 }
@@ -22,6 +26,14 @@ func main() {
 func cleanInput(text string) []string {
 	words := strings.Fields(text)
 	return words
+}
+
+func commandHelp() error {
+	fmt.Println("Welcome to the Pokedex!")
+	fmt.Println("Usage:\n")
+	fmt.Println("  help: Show this help message")
+	fmt.Println("  exit: Exit the Pokedex")
+	return nil
 }
 
 func commandExit() error {
