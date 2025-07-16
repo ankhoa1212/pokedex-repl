@@ -13,7 +13,6 @@ func main() {
 		reader.Scan()
 		input = reader.Text()
 		words := cleanInput(input)
-		fmt.Println("You entered:", words)
 		if words[0] == "exit" {
 			commandExit()
 		}
