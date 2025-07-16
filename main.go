@@ -11,7 +11,7 @@ type Command struct {
 	callback     func() error
 }
 
-map[string]Command{
+var commands = map[string]Command{
 	"help": {
 		name:        "help",
 		description: "Show the help message",
@@ -32,10 +32,15 @@ func main() {
 		reader.Scan()
 		input = reader.Text()
 		words := cleanInput(input)
+		commandFound := false
 		for i := range words {
 			if cmd, ok := commands[words[i]]; ok {
+				commandFound = true
 				cmd.callback()
 			}
+		}
+		if !commandFound {
+			fmt.Printf("Unknown command\n")
 		}
 	}
 }
