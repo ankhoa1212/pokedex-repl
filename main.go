@@ -14,10 +14,19 @@ func main() {
 		input = reader.Text()
 		words := cleanInput(input)
 		fmt.Println("You entered:", words)
+		if words[0] == "exit" {
+			commandExit()
+		}
 	}
 }
 
 func cleanInput(text string) []string {
 	words := strings.Fields(text)
 	return words
+}
+
+func commandExit() error {
+	fmt.Println("Closing the Pokedex...")
+	os.Exit(0)
+	return nil
 }
